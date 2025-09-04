@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1rem;
   padding: 1.5rem;
   border-radius: 12px;
   background: #fff;
@@ -17,10 +17,16 @@ export const CardContainer = styled.div`
   }
 `;
 
+export const CardHeader = styled.div`
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+`;
+
 export const Title = styled.h3`
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   font-weight: 600;
-  color: #222;
+  color: ${({ theme }) => theme.colors.primary};
 `;
 
 export const Description = styled.p`
@@ -36,12 +42,20 @@ export const TagsWrapper = styled.div`
 
 export const Tag = styled.span`
   font-size: 0.75rem;
-  background: #f5f5f5;
-  color: #333;
+  font-weight: 600;
+  background: ${({ theme }) => theme.colors.secondary};
+  color: ${({ theme }) => theme.colors.primary};
   padding: 0.2rem 0.6rem;
   border-radius: 8px;
 `;
 
 export const IconWrapper = styled.div`
-  font-size: 2rem;
+  background-color: ${({ theme }) => theme.colors.background};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  width: 2.5rem;
+  height: 2.5rem;
+  text-align: center;
 `;

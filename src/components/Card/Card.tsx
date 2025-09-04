@@ -1,27 +1,38 @@
-import type { Icon } from "@phosphor-icons/react";
+import { iconMap } from "../../data/icons";
 import {
   CardContainer,
+  CardHeader,
   Description,
   IconWrapper,
   Tag,
   TagsWrapper,
   Title,
 } from "./Card.styles";
-import React from "react";
 
 interface ICardProps {
   title: string;
   description?: string;
-  icon?: Icon;
+  icon?: string;
   tags?: string[];
   onClick?: () => void;
 }
 
 const Card = ({ title, description, icon, tags, onClick }: ICardProps) => {
+  const IconComponent = icon
+    ? iconMap[icon as keyof typeof iconMap]
+    : undefined;
+
   return (
     <CardContainer onClick={onClick}>
-      {icon && <IconWrapper>{React.createElement(icon)}</IconWrapper>}
-      <Title>{title}</Title>
+      <CardHeader>
+        {IconComponent && (
+          <IconWrapper>
+            <IconComponent size={24} />
+          </IconWrapper>
+        )}
+        <Title>{title}</Title>
+      </CardHeader>
+
       {description && <Description>{description}</Description>}
       {tags && (
         <TagsWrapper>
