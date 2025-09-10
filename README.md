@@ -48,3 +48,14 @@ npm install
 
 # Rode em modo desenvolvimento
 npm run dev
+```
+
+## 🧩 Futuro
+
+- Adicionar novos modos de respiração configuráveis
+- Estatísticas de prática (tempo total, séries concluídas)
+- Versão mobile conectada à experiência web
+
+## 📖 Licença
+
+Este projeto é open-source, sob a licença MIT.
