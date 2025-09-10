@@ -2,17 +2,21 @@
   "name": "breathe",
   "private": true,
   "version": "0.0.0",
+  "homepage": "https://victor-medrado.github.io/breathe-app/",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "bun run build",
+    "deploy": "gh-pages -d dist "
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
     "@reduxjs/toolkit": "^2.8.2",
     "framer-motion": "^12.23.12",
+    "gh-pages": "^6.3.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-redux": "^9.2.0",
@@ -22,6 +26,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
+    "@types/node": "^24.3.1",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
     "@vitejs/plugin-react": "^5.0.0",

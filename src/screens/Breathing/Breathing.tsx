@@ -18,7 +18,7 @@ import {
   MotionCircle,
   TextContainer,
 } from "./Breathing.styles";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../store";

@@ -4,7 +4,7 @@ import Breathing from "../screens/Breathing/Breathing";
 
 const AppRoutes = () => {
   return (
-    <Router>
+    <Router basename="/breathe-app/">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/breathing/:id" element={<Breathing />} />
