@@ -66,3 +66,23 @@ export const Grid = styled.div`
     gap: 1rem;
   }
 `;
+
+export const FooterContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: #cec7bb;
+  gap: 4px;
+
+  a {
+    font-weight: 700;
+    color: #cec7bb;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  @media (max-width: 380px) {
+    flex-direction: column;
+  }
+`;

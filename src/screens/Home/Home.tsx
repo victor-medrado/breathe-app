@@ -2,6 +2,7 @@ import { useNavigate } from "react-router";
 import { Card } from "../../components";
 import {
   Container,
+  FooterContainer,
   Grid,
   Header,
   HeaderAppName,
@@ -10,9 +11,23 @@ import {
 } from "./Home.styles";
 import { breathingTechniques } from "../../data/techniques";
 import { FlowerLotusIcon } from "@phosphor-icons/react";
+import { useDispatch } from "react-redux";
+import { setTechnique } from "../../store/breathingSlice";
 
 const Home = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const handleClick = (id: string) => {
+    const selectedTechnique = breathingTechniques.find(
+      (tech) => tech.id === id
+    );
+
+    if (selectedTechnique) {
+      dispatch(setTechnique(selectedTechnique));
+      navigate(`/breathing/${id}`);
+    }
+  };
 
   return (
     <main style={{ position: "relative" }}>
@@ -35,10 +50,15 @@ const Home = () => {
                 description={technique.description}
                 icon={technique.icon}
                 tags={technique.tags}
-                onClick={() => navigate(`/breathing/${technique.id}`)}
+                onClick={() => handleClick(technique.id)}
               />
             ))}
           </Grid>
+          <FooterContainer>
+            <p>Feito com atenção plena por</p>
+
+            <a onClick={() => navigate("/about")}>Victor Medrado</a>
+          </FooterContainer>
         </Container>
       </MainContainer>
     </main>
