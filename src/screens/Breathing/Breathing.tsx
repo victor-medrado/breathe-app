@@ -5,6 +5,7 @@ import {
 } from "@phosphor-icons/react";
 import {
   ActionButton,
+  BackButton,
   ButtonContainer,
   Container,
   Counter,
@@ -22,19 +23,11 @@ import { useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../store";
-import {
-  pause,
-  restart,
-  resume,
-  setTechnique,
-  tick,
-} from "../../store/breathingSlice";
-import { useNavigate, useParams } from "react-router";
-import { breathingTechniques } from "../../data/techniques";
+import { stop, restart, start, tick } from "../../store/breathingSlice";
+import { useNavigate } from "react-router";
 import { iconMap } from "../../data/icons";
 
 const Breathing = () => {
-  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -48,6 +41,7 @@ const Breathing = () => {
   } = useSelector((state: RootState) => state.breathing);
 
   const handleBack = () => {
+    dispatch(stop());
     navigate("/");
   };
 
@@ -60,18 +54,6 @@ const Breathing = () => {
 
     return () => clearInterval(interval);
   }, [isRunning, dispatch]);
-
-  useEffect(() => {
-    const breathingTechniqueFound = breathingTechniques.find(
-      (t) => t.id === id
-    );
-
-    if (breathingTechniqueFound) {
-      dispatch(setTechnique(breathingTechniqueFound));
-    } else {
-      navigate("/");
-    }
-  }, [id, dispatch, navigate]);
 
   const formatTime = (seconds: number) => {
     const m = Math.floor(seconds / 60)
@@ -138,7 +120,9 @@ const Breathing = () => {
           <MotionCircle
             variants={circleVariants}
             initial="initial"
-            animate={current ? current.action : "initial"}
+            animate={
+              !isRunning ? "initial" : current ? current.action : "initial"
+            }
             transition={{
               duration: remainingTime,
               ease: "easeInOut",
@@ -149,24 +133,33 @@ const Breathing = () => {
             isRunning={isRunning}
             stepElapsed={stepElapsed}
             prevAction={prevStep.action}
+            onClick={!isRunning ? () => dispatch(start()) : undefined}
           >
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={current ? current.action : "initial"}
-                variants={textVariants}
-                initial="hidden"
-                animate="visible"
-                exit="hidden"
-                transition={{ duration: 0.5 }}
-              >
+            {isRunning ? (
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={current ? current.action : "initial"}
+                  variants={textVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="hidden"
+                  transition={{ duration: 0.5 }}
+                >
+                  <TextContainer>
+                    <Label>
+                      {translateBreatheAction(current.action).toUpperCase()}
+                    </Label>
+                    <Label>{remainingTime}</Label>
+                  </TextContainer>
+                </motion.div>
+              </AnimatePresence>
+            ) : (
+              <>
                 <TextContainer>
-                  <Label>
-                    {translateBreatheAction(current.action).toUpperCase()}
-                  </Label>
-                  <Label>{remainingTime}</Label>
+                  <Label>Iniciar</Label>
                 </TextContainer>
-              </motion.div>
-            </AnimatePresence>
+              </>
+            )}
           </MotionCircle>
         </motion.div>
         <CounterContainer>
@@ -182,17 +175,20 @@ const Breathing = () => {
         </CounterContainer>
         <ButtonContainer>
           <ActionButton
-            onClick={() => (isRunning ? dispatch(pause()) : dispatch(resume()))}
+            onClick={() => (isRunning ? dispatch(stop()) : dispatch(start()))}
+            aria-label={isRunning ? "Pausar" : "Iniciar"}
           >
-            {isRunning ? <PauseIcon /> : <PlayIcon />}
-            {isRunning ? "Pausar" : "Retomar"}
+            {isRunning ? <PauseIcon size={24} /> : <PlayIcon size={24} />}
           </ActionButton>
-          <ActionButton onClick={() => dispatch(restart())}>
-            <ArrowCounterClockwiseIcon />
-            Reiniciar
+          <ActionButton
+            onClick={() => dispatch(restart())}
+            aria-label="Reiniciar"
+          >
+            <ArrowCounterClockwiseIcon size={24} />
           </ActionButton>
-          <ActionButton onClick={handleBack}>Voltar</ActionButton>
         </ButtonContainer>
+
+        <BackButton onClick={handleBack}>Voltar</BackButton>
       </Container>
     </MainContainer>
   );

@@ -24,10 +24,10 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   background-color: ${({ theme }) => theme.colors.background};
+  gap: 1.25rem;
 
   @media (max-width: 768px) {
     padding: 1rem;
-    gap: 1.25rem;
     max-width: 100%;
   }
 `;
@@ -35,6 +35,11 @@ export const Container = styled.div`
 export const Header = styled.div`
   text-align: center;
   margin-bottom: 10rem;
+  max-width: 32rem;
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+  }
 `;
 
 export const HeaderIcon = styled.div`
@@ -150,6 +155,7 @@ export const MotionCircle = styled(motion.div)<MotionCircleProps>`
   box-sizing: border-box;
   position: relative;
   overflow: visible;
+  box-shadow: 0 0 0 1px rgba(206, 199, 187, 0.15);
 
   @media (max-width: 600px) {
     width: 140px;
@@ -165,6 +171,7 @@ export const MotionCircle = styled(motion.div)<MotionCircleProps>`
     if (!isRunning) {
       return css`
         animation-play-state: paused;
+        cursor: pointer;
       `;
     }
 
@@ -215,41 +222,39 @@ export const Label = styled.span`
 export const ButtonContainer = styled.div`
   display: flex;
   gap: 1rem;
-  margin-top: 2rem;
 
   @media (max-width: 600px) {
-    flex-direction: column;
-    gap: 0.5rem;
-    width: 100%;
-    align-items: stretch;
+    justify-content: center;
   }
 `;
 
 export const ActionButton = styled.button`
-  background: ${({ theme }) => theme.colors.secondary};
-  color: ${({ theme }) => theme.colors.primary};
-  border: none;
-  border-radius: 8px;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
+  background-color: rgba(206, 199, 187, 0.25);
+  border: 1px solid rgba(206, 199, 187, 0.55);
+  border-radius: 9999px;
+  color: ${({ theme }) => theme.colors.secondary};
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
 
   &:hover {
     transform: scale(1.05);
     opacity: 0.9;
   }
+`;
 
-  @media (max-width: 600px) {
-    justify-content: center;
-    width: 100%;
-    font-size: 0.95rem;
-    padding: 0.6rem 1rem;
-  }
+export const BackButton = styled(ActionButton)`
+  background: ${({ theme }) => theme.colors.primary};
+  border: 1px solid ${({ theme }) => theme.colors.secondary};
+  color: ${({ theme }) => theme.colors.secondary};
+  width: 120px;
+  padding: 12px 16px;
+  height: auto;
 `;
 
 export const CounterContainer = styled.div`

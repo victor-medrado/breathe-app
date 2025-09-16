@@ -29,19 +29,20 @@ const breathingSlice = createSlice({
       state.cycleCount = 0;
       state.elapsedTime = 0;
       state.stepElapsed = 0;
-      state.isRunning = true;
-    },
-    pause(state) {
       state.isRunning = false;
     },
-    resume(state) {
+    stop(state) {
+      state.isRunning = false;
+    },
+    start(state) {
       state.isRunning = true;
     },
     restart(state) {
       state.cycleCount = 0;
       state.elapsedTime = 0;
       state.currentStep = 0;
-      state.isRunning = true;
+      state.stepElapsed = 0;
+      state.isRunning = false;
     },
     nextStep(state) {
       if (!state.technique) return;
@@ -80,8 +81,8 @@ const breathingSlice = createSlice({
 });
 
 export const {
-  pause,
-  resume,
+  stop,
+  start,
   restart,
   nextStep,
   incrementCycle,
