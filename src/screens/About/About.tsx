@@ -31,6 +31,9 @@ import {
   XIcon,
 } from "@phosphor-icons/react";
 import { useState } from "react";
+import ProfilePic from '../../../public/profile-pic.png'
+import QRCode from '../../../public/pix-qr-code.png'
+
 
 const About = () => {
   const [isPixModalVisible, setIsPixModalVisible] = useState(false);
@@ -67,7 +70,7 @@ const About = () => {
 
             <HeaderTitle>Sobre o Desenvolvedor</HeaderTitle>
             <ProfileContainer>
-              <ProfileImage src="/profile-pic.png" />
+              <ProfileImage src={ProfilePic} alt="Victor Medrado"/>
               <ProfileName>Victor Medrado</ProfileName>
 
               <SocialLinks>
@@ -155,7 +158,7 @@ const About = () => {
               <p>Escaneie o QR Code ou copie a chave Pix:</p>
               <PixContent>
                 <img
-                  src="/pix-qr-code.png"
+                  src={QRCode}
                   alt="QR Code Pix"
                 />
                 <PixCodeBox>
